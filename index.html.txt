@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webサイト制作 見積もり計算ツール</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 900px; margin: auto; background: #f9fafb; }
+    h1, h2 { color: #333; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 2rem; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 0.7rem; text-align: left; }
+    th { background: #f4f4f4; }
+    .total { font-weight: bold; font-size: 1.3rem; background: #fff; padding: 1rem; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <h1>Webサイト制作 見積もり計算ツール</h1>
+
+  <form id="menuForm">
+
+    <h2>基本プラン</h2>
+    <table>
+      <tr><th>選択</th><th>プラン名</th><th>価格</th></tr>
+      <tr><td><input type="radio" name="base" value="80000"></td><td>LP（ランディングページ）</td><td>¥80,000</td></tr>
+      <tr><td><input type="radio" name="base" value="150000"></td><td>コーポレートサイト（5ページ）</td><td>¥150,000</td></tr>
+      <tr><td><input type="radio" name="base" value="250000"></td><td>ECサイト構築</td><td>¥250,000</td></tr>
+      <tr><td><input type="radio" name="base" value="180000"></td><td>WordPressサイト</td><td>¥180,000</td></tr>
+    </table>
+
+    <h2>オプション</h2>
+    <table>
+      <tr><th>選択</th><th>項目</th><th>価格</th></tr>
+      <tr><td><input type="checkbox" name="option" value="20000"></td><td>ロゴ制作</td><td>¥20,000</td></tr>
+      <tr><td><input type="checkbox" name="option" value="10000"></td><td>お問い合わせフォーム</td><td>¥10,000</td></tr>
+      <tr><td><input type="checkbox" name="option" value="15000"></td><td>ブログ機能</td><td>¥15,000</td></tr>
+      <tr><td><input type="checkbox" name="option" value="7000"></td><td>SEO初期設定</td><td>¥7,000</td></tr>
+      <tr><td><input type="checkbox" name="option" value="5000"></td><td>アクセス解析導入</td><td>¥5,000</td></tr>
+    </table>
+
+    <p class="total">合計金額：<span id="total">¥0</span></p>
+
+  </form>
+
+  <script>
+    // JavaScript部分：価格を自動計算する
+    const form = document.getElementById("menuForm");
+    const totalEl = document.getElementById("total");
+
+    form.addEventListener("change", () => {
+      let total = 0;
+
+      // 基本プラン（radio）
+      const base = form.querySelector("input[name='base']:checked");
+      if (base) total += Number(base.value);
+
+      // オプション（checkbox）
+      const options = form.querySelectorAll("input[name='option']:checked");
+      options.forEach(opt => total += Number(opt.value));
+
+      // 表示更新
+      totalEl.textContent = `¥${total.toLocaleString()}`;
+    });
+  </script>
+
+</body>
+</html>
